@@ -1,5 +1,48 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!135 &1012327101347495555
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7249794722769613395}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3.5
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!136 &5465793735608572396
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7249794722769613395}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!54 &1521889309150140163
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7249794722769613395}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &6653183559472919339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67,5 +110,52 @@ PrefabInstance:
       propertyPath: m_Name
       value: Follower No Leader
       objectReference: {fileID: 0}
+    - target: {fileID: 4091708079697363320, guid: 3715a387f27097e438147049d8cc2310,
+        type: 3}
+      propertyPath: m_TagString
+      value: follower
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091708079697363323, guid: 3715a387f27097e438147049d8cc2310,
+        type: 3}
+      propertyPath: genderColour.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091708079697363323, guid: 3715a387f27097e438147049d8cc2310,
+        type: 3}
+      propertyPath: follower
+      value: 
+      objectReference: {fileID: 7249794722769613395}
+    - target: {fileID: 4091708079697363323, guid: 3715a387f27097e438147049d8cc2310,
+        type: 3}
+      propertyPath: genderColour.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f2b82054c65ddb8488dff8091a3fead2, type: 2}
+    - target: {fileID: 4091708079697363323, guid: 3715a387f27097e438147049d8cc2310,
+        type: 3}
+      propertyPath: genderColour.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 616d10f984d9e944aac24c81f543f09a, type: 2}
+    - target: {fileID: 4091708079697363323, guid: 3715a387f27097e438147049d8cc2310,
+        type: 3}
+      propertyPath: meshRender
+      value: 
+      objectReference: {fileID: 7249794722139537530}
+    - target: {fileID: 4091708080326914902, guid: 3715a387f27097e438147049d8cc2310,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3715a387f27097e438147049d8cc2310, type: 3}
+--- !u!1 &7249794722769613395 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4091708079697363320, guid: 3715a387f27097e438147049d8cc2310,
+    type: 3}
+  m_PrefabInstance: {fileID: 6653183559472919339}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7249794722139537530 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4091708080326914897, guid: 3715a387f27097e438147049d8cc2310,
+    type: 3}
+  m_PrefabInstance: {fileID: 6653183559472919339}
+  m_PrefabAsset: {fileID: 0}

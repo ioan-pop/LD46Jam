@@ -26,8 +26,7 @@ public class FollowerSpawner : MonoBehaviour
     }
 
     Vector3 RandPos() {
-        Vector3 pos = new Vector3(Random.Range(-(radius/2f), (radius/2)), 1, Random.Range(-(radius / 2f), (radius / 2)));
-        Debug.Log(pos);
+        Vector3 pos = new Vector3(transform.position.x + Random.Range(-(radius/2f), (radius/2)), 1, transform.position.z + Random.Range(-(radius / 2f), (radius / 2)));
 /*        if (followerPositions.Contains(pos)) {
             do {
                 pos = new Vector3(Random.Range(-(radius / 2f), (radius / 2)), 1, Random.Range(-(radius / 2f), (radius / 2)));

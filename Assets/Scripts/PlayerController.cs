@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private float posX;
     private float posZ;
 
+    private List<GameObject> followerInRange = new List<GameObject>();
+
     void Start()
     {
         
@@ -41,8 +43,38 @@ public class PlayerController : MonoBehaviour
                     if (terrain != null) {
                         playerNavMeshAgent.destination = hit.point;
                     }
+                    if ( hit.transform.tag == "follower" ) {
+                        Debug.Log("hit a follower");
+                        playerNavMeshAgent.destination = hit.point;
+                    }
                 }
             }
+
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                SpreadReligion();
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider c) {
+        if (c.gameObject.CompareTag("follower")) {
+            if (!followerInRange.Contains(c.gameObject)) {
+                followerInRange.Add(c.gameObject);
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider c) {
+        if (c.gameObject.CompareTag("follower")) {
+            if (followerInRange.Contains(c.gameObject)) {
+                followerInRange.Remove(c.gameObject);
+            }
+        }
+    }
+
+    private void SpreadReligion() {
+        foreach (GameObject follower in followerInRange) {
+            follower.GetComponent<FollowerController>().FollowNewTarget(transform);
         }
     }
 
