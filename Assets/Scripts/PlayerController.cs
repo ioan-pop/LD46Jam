@@ -22,13 +22,11 @@ public class PlayerController : MonoBehaviour
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
 
             foreach(RaycastHit hit in hits) {
+                // TODO: Rethink getting component of each hit.
+                // Alternatively, could use 'hit.transform.name', but that has it's own problems
                 var terrain = hit.transform.GetComponent<Terrain>();
                 if(terrain != null) {
-                    print(hit);
-                    // Make nav mesh agent a public
                     playerNavMeshAgent.destination = hit.point;
-
-                    DebugRay(hit.point);
                 }
             }
         }
@@ -36,10 +34,5 @@ public class PlayerController : MonoBehaviour
 
     private Ray GetMouseRay() {
         return Camera.main.ScreenPointToRay(Input.mousePosition);
-    }
-
-    private void DebugRay(Vector3 point) {
-        Debug.DrawLine(Camera.main.transform.position, point, Color.red, 5f);
-        print(point);
     }
 }
