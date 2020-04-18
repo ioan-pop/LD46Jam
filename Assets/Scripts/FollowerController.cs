@@ -6,16 +6,39 @@ using UnityEngine.AI;
 public class FollowerController : MonoBehaviour
 {
     public NavMeshAgent followerNavMeshAgent;
-    
-    public Transform targetTransform;
+    public bool isFollowing;
+
+    [SerializeField]
+    private Transform targetTransform;
+
+    private void Awake() {
+        isFollowing = false;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position, targetTransform.position) < 3.5f) {
-            followerNavMeshAgent.ResetPath();
-        } else {
-            followerNavMeshAgent.destination = targetTransform.position;
-        }
+/*        if (isFollowing) {
+            if (Vector3.Distance(transform.position, targetTransform.position) < 3.5f) {
+                followerNavMeshAgent.ResetPath();
+            } else {
+                followerNavMeshAgent.destination = targetTransform.position;
+            }
+        }*/
     }
+
+    public void FollowNewTarget() {
+        // set target
+        isFollowing = true;
+    }
+
+    private void FollowerWander () {
+
+    }
+
+    private void FollowerPath () {
+
+    }
+
+
 }
