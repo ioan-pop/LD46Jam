@@ -7,18 +7,20 @@ public class PlayerController : MonoBehaviour
 {
     public bool isClickMovement;
 
+    public Material followerMaterial;
+
     public NavMeshAgent playerNavMeshAgent;
     public CharacterController characterController;
+
+    public GameObject banner;
+
+    private List<GameObject> followerInRange = new List<GameObject>();
+
 
     private float posX;
     private float posZ;
 
-    private List<GameObject> followerInRange = new List<GameObject>();
 
-    void Start()
-    {
-        
-    }
 
     void Update() {
         HandleMouse();
@@ -53,6 +55,9 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space)) {
                 SpreadReligion();
             }
+            if (Input.GetKeyDown(KeyCode.E)) {
+                DropBanner();
+            }
         }
     }
 
@@ -72,9 +77,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void DropBanner() {
+        Quaternion rotationOfTheParentOfTheParent = transform.rotation;
+        /*Instantiate(banner, new Vector3 (transform.position.x, transform.position.y, transform.position.z + 3), Quaternion.identity);*/
+        GameObject bannerPlaced = Instantiate(banner, transform.position + (transform.forward * 2) + (transform.right * 2), rotationOfTheParentOfTheParent);
+        bannerPlaced.GetComponent<Banner>().SetPlayerWhoPlace(transform, followerMaterial);
+    }
+
     private void SpreadReligion() {
         foreach (GameObject follower in followerInRange) {
-            follower.GetComponent<FollowerController>().FollowNewTarget(transform);
+            follower.GetComponent<FollowerController>().FollowNewTarget(transform, followerMaterial);
         }
     }
 

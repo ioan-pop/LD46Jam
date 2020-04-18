@@ -11,7 +11,7 @@ public class FollowerSpawner : MonoBehaviour
 
     public int maxFollowerCount;
 
-    private int totalFollowerSpaned;
+    private int totalFollowerSpawned;
     private List<Vector3> followerPositions = new List<Vector3>();
     void Start() {
         
@@ -19,9 +19,10 @@ public class FollowerSpawner : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        while (totalFollowerSpaned < maxFollowerCount) {
-            Instantiate(follower, RandPos(), Quaternion.identity);
-            totalFollowerSpaned++;
+        while (totalFollowerSpawned < maxFollowerCount) {
+            GameObject newFollower = Instantiate(follower, RandPos(), Quaternion.identity);
+            GameManager.Instance.NewFollower(newFollower);
+            totalFollowerSpawned++;
         }
     }
 

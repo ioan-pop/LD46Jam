@@ -9,6 +9,7 @@ public class FollowerController : MonoBehaviour
     public bool isFollowing;
 
     public Material[] genderColour;
+    
     public MeshRenderer meshRender;
     public GameObject follower;
     
@@ -18,6 +19,7 @@ public class FollowerController : MonoBehaviour
 
     [SerializeField]
     private Transform targetTransform;
+    private Material followerColour;
 
     private Transform targetDestination;
     private GameObject[] villages;
@@ -33,12 +35,17 @@ public class FollowerController : MonoBehaviour
 
     private float timer;
     private float wanderTimer;
+
     private float villageTravelTimer;
     private float giveBirthTimer;
+
     private float newVillageCountdownTimer;
     private float newPartnerCountdown;
-
     private float generateFollowerTimer;
+
+    private float timePrayingAtBanner;
+    private float timeToConvertAtBanner;
+
 
 
     private float timeToBirth;
@@ -50,11 +57,14 @@ public class FollowerController : MonoBehaviour
     private bool startBirth;
     private bool spawnNewFollower;
 
+    private bool prayingAtBAnner;
 
     private void Awake() {
         partnerCollider = GetComponent<SphereCollider>();
         startBirth = false;
         timeToBirth = 15f;
+
+        timeToConvertAtBanner = 5f;
 
         villages = GameObject.FindGameObjectsWithTag("village");
 
@@ -91,8 +101,10 @@ public class FollowerController : MonoBehaviour
                 generateFollowerTimer += Time.deltaTime;
             } while (generateFollowerTimer < timeToBirth);
 
-            if (spawnNewFollower)
-                Instantiate(follower, transform.position, Quaternion.identity);
+            if (spawnNewFollower) {
+                GameObject newFollower = Instantiate(follower, transform.position, Quaternion.identity);
+                GameManager.Instance.NewFollower(newFollower);
+            }
 
             startBirth = false;
             generateFollowerTimer = 0f;
@@ -100,13 +112,23 @@ public class FollowerController : MonoBehaviour
             newPartnerCountdown = GeneratePartnerTimer();
             findPartner = false;
 
+        } else  if (prayingAtBAnner) {
+            if (followerNavMeshAgent.remainingDistance < 2f) {
+                timePrayingAtBanner += Time.deltaTime;
+                if (timePrayingAtBanner > timeToConvertAtBanner) {
+                    FollowNewTarget(targetTransform, followerColour);
+                }
+            }
         } else { // not following a preist
 
+            if (GameManager.Instance.CanBirth()) {
+                giveBirthTimer += Time.deltaTime;
+            }
+
             // our timers for new events
-            giveBirthTimer += Time.deltaTime;
             villageTravelTimer += Time.deltaTime;
 
-           
+            // time to travel to a village
 
             if (villageTravelTimer >= newVillageCountdownTimer && !isTravelingToVillage) {
                 isTravelingToVillage = true;
@@ -156,9 +178,8 @@ public class FollowerController : MonoBehaviour
         }
     }
 
-    public void FollowNewTarget(Transform newTarget) {
-        // set target
-        Debug.Log("follower new leader!");
+    public void FollowNewTarget(Transform newTarget, Material material) {
+        meshRender.material = material;
         targetTransform = newTarget;
         isFollowing = true;
         partnerCollider.enabled = false;
@@ -171,7 +192,7 @@ public class FollowerController : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider c) {
-        if (giveBirthTimer >= newPartnerCountdown && !findPartner) {
+        if (giveBirthTimer >= newPartnerCountdown && !findPartner && GameManager.Instance.CanBirth()) {
             if (c.gameObject.CompareTag("follower") && c.gameObject.GetComponent<FollowerController>().gender != gender) {
                 partnerFollower = c.gameObject;
                 partnerController = partnerFollower.GetComponent<FollowerController>();
@@ -182,11 +203,21 @@ public class FollowerController : MonoBehaviour
                 partnerController.SetBirth(false);
                 SetBirth(true);
             }
-
         }
     }
 
-    
+    public void PrayAtBanner(Transform newPos, Transform player) {
+        if (!prayingAtBAnner) {
+            followerNavMeshAgent.SetDestination(newPos.position);
+            targetTransform = player;
+            prayingAtBAnner = true;
+        }
+    }
+
+
+    public void SetFollowerMaterial(Material material) {
+        followerColour = material;
+    }
 
     private void FollowerWander () {
 
