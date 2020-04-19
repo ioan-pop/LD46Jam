@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [Header("General")]
     public Camera followCamera;
     public bool isClickMovement;
+    public bool enableCameraMouseRotation;
     public NavMeshAgent playerNavMeshAgent;
     public CharacterController characterController;
     public Animator playerAnimator;
@@ -21,12 +22,26 @@ public class PlayerController : MonoBehaviour
     private List<GameObject> followerInRange = new List<GameObject>();
     private List<GameObject> bannersInRange = new List<GameObject>();
 
+    private bool destoryingBanner = false;
+
+    private bool canSpreadReligion = false;
+    private bool canDropBanner = false;
+
+    private bool canDoAction = false;
+
     private float posX;
     private float posZ;
     private Material[] playerMaterials;
     private Color primaryColor;
     private Color secondaryColor;
     private AudioSource audioSource;
+
+    private float actionTimer = 0f;
+    private float actionCoolDown = 2f;
+
+    private float timerTillDestroyedBanner = 0f;
+    private float timeToDestroyBanner = 2f;
+
     void Start() {
         playerMaterials = playerModel.GetComponent<MeshRenderer>().materials;
         SetPlayerColors();
@@ -35,6 +50,9 @@ public class PlayerController : MonoBehaviour
 
     void Update() {
         HandleMouse();
+        HandleBannerActions();
+        HandleActionTimer();
+        HandleSpreadReligion();
         UpdateCamera();
         HandleAnimation();
     }
@@ -57,38 +75,53 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    private void HandleMouse()
-    {
+    private void HandleMouse() {
         if (!isClickMovement) {
             posX = Input.GetAxis("Horizontal");
             posZ = Input.GetAxis("Vertical");
-
             Vector3 movePlayer = transform.right * posX + transform.forward * posZ;
             characterController.SimpleMove(movePlayer * 5f);
         } else {
-            if (Input.GetMouseButton(1)) {
-                RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+            if (!destoryingBanner) {
+                if (Input.GetMouseButton(1)) {
+                    RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
 
-                foreach (RaycastHit hit in hits) {
-                    // TODO: Rethink getting component of each hit.
-                    // Alternatively, could use 'hit.transform.name', but that has it's own problems
-                    var terrain = hit.transform.GetComponent<Terrain>();
-                    if (terrain != null) {
-                        playerNavMeshAgent.destination = hit.point;
-                    }
-                    if ( hit.transform.tag == "follower" ) {
-                        // Debug.Log("hit a follower");
-                        playerNavMeshAgent.destination = hit.point;
+                    foreach (RaycastHit hit in hits) {
+                        // TODO: Rethink getting component of each hit.
+                        // Alternatively, could use 'hit.transform.name', but that has it's own problems
+                        var terrain = hit.transform.GetComponent<Terrain>();
+                        if (terrain != null) {
+                            playerNavMeshAgent.destination = hit.point;
+                        }
                     }
                 }
-            }
+            } 
+        }
+    }
 
-            if (Input.GetKeyDown(KeyCode.Space)) {
-                SpreadReligion();
-            }
-            if (Input.GetKeyDown(KeyCode.E)) {
-                DropBanner();
-            }
+    private void HandleBannerActions() {
+        if (Input.GetKeyDown(KeyCode.E) && canDoAction) {
+            DropBanner();
+        }
+        if (Input.GetKey(KeyCode.Q)) {
+            DestroyBanner();
+        } else if (Input.GetKeyUp(KeyCode.Q)) {
+            timerTillDestroyedBanner = 0f;
+            destoryingBanner = false;
+        }
+    }
+
+    private void HandleActionTimer() {
+        actionTimer += Time.deltaTime;
+        if (actionTimer >= actionCoolDown) {
+            canDoAction = true;
+            actionTimer = 0f;
+        }
+    }
+
+    private void HandleSpreadReligion() {
+        if (Input.GetKeyDown(KeyCode.Space) && canDoAction) {
+            SpreadReligion();
         }
     }
 
@@ -135,6 +168,21 @@ public class PlayerController : MonoBehaviour
         /*Instantiate(banner, new Vector3 (transform.position.x, transform.position.y, transform.position.z + 3), Quaternion.identity);*/
         GameObject bannerPlaced = Instantiate(banner, transform.position + (transform.forward * 2) + (transform.right * 2), rotationOfTheParentOfTheParent);
         bannerPlaced.GetComponent<Banner>().SetBannerSettings(transform, followerMaterial, primaryColor, secondaryColor);
+    }
+
+    private void DestroyBanner() {
+        timerTillDestroyedBanner += Time.deltaTime;
+        if (timerTillDestroyedBanner >= timeToDestroyBanner) {
+            GameObject destroyedBanner = bannersInRange[0];
+            bannersInRange.RemoveAt(0);
+            Destroy(destroyedBanner);
+        }
+        if (!destoryingBanner) {
+            destoryingBanner = true;
+        }
+        playerNavMeshAgent.SetDestination(bannersInRange[0].transform.position);
+        transform.LookAt(bannersInRange[0].transform);
+        
     }
 
     private void SpreadReligion() {
