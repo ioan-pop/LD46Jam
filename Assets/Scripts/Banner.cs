@@ -5,12 +5,13 @@ using UnityEngine;
 public class Banner : MonoBehaviour {
     public GameObject bannerPlacementFX;
     public AudioClip bannerPlacement;
+    public bool isPlayer;
 
     private Transform player;
     private FollowerController followerController;
     private Material followerMaterial;
     private AudioSource audioSource;
-    private bool isPlayer;
+    
 
     private Color bannerPrimaryColor;
     private Color bannerSecondaryColor;

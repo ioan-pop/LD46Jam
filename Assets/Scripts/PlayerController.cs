@@ -10,10 +10,10 @@ public class PlayerController : MonoBehaviour
     public bool isClickMovement;
     public bool enableCameraMouseRotation;
     public NavMeshAgent playerNavMeshAgent;
-    public CharacterController characterController;
     public Animator playerAnimator;
     public GameObject playerModel;
-
+    public CharacterController characterController;
+    public GameObject spreadReligionParticles;
     [Header("Sound")]
     public AudioClip sound_spreadReligion;
     public AudioClip sound_destroyFlagReligion;
@@ -27,20 +27,15 @@ public class PlayerController : MonoBehaviour
 
     private bool destoryingBanner = false;
 
-    private bool canSpreadReligion = false;
-    private bool canDropBanner = false;
-
     private bool canDoAction = false;
 
-    private float posX;
-    private float posZ;
     private Material[] playerMaterials;
     private Color primaryColor;
     private Color secondaryColor;
     private AudioSource audioSource;
 
     private float actionTimer = 0f;
-    private float actionCoolDown = 2f;
+    private float actionCoolDown = 4f;
 
     private float timerTillDestroyedBanner = 0f;
     private float timeToDestroyBanner = 2f;
@@ -79,17 +74,8 @@ public class PlayerController : MonoBehaviour
     }
     
     private void HandleMouse() {
-        if (!isClickMovement) {
-
-            posX = Input.GetAxis("Horizontal");
-            posZ = Input.GetAxis("Vertical");
-
-            Vector3 movePlayer = transform.right * posX + transform.forward * posZ;
-
-            characterController.SimpleMove(movePlayer * 5f);
-
-        } else {
-            if (!destoryingBanner) {
+        if (!destoryingBanner) {
+            if (isClickMovement) {
                 if (Input.GetMouseButton(1)) {
                     RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
                     foreach (RaycastHit hit in hits) {
@@ -98,22 +84,33 @@ public class PlayerController : MonoBehaviour
                         }
                     }
                 }
+            } else {
+                float x = Input.GetAxis("Horizontal");
+                float z = Input.GetAxis("Vertical");
+
+                Vector3 move = transform.right * x + transform.forward * z;
+                characterController.SimpleMove(move * 5);
             }
+            
         }
     }
 
     private void HandleBannerActions() {
         if (Input.GetKeyDown(KeyCode.E) && canDoAction) {
             DropBanner();
+            canDoAction = false;
         }
         if (bannersInRange.Count > 0) {
             if (Input.GetKey(KeyCode.Q)) {
                 DestroyBanner();
                 destoryingBanner = true;
-            } else if (Input.GetKeyUp(KeyCode.Q)) {
+            }  
+            if (Input.GetKeyUp(KeyCode.Q)) {
                 timerTillDestroyedBanner = 0f;
                 destoryingBanner = false;
             }
+        } else {
+            destoryingBanner = false;
         }
     }
 
@@ -127,6 +124,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleSpreadReligion() {
         if (Input.GetKeyDown(KeyCode.Space) && canDoAction) {
+            canDoAction = false;
             SpreadReligion();
         }
     }
@@ -178,12 +176,13 @@ public class PlayerController : MonoBehaviour
     private void DestroyBanner() {
         timerTillDestroyedBanner += Time.deltaTime;
         if (timerTillDestroyedBanner >= timeToDestroyBanner) {
+            destoryingBanner = false;
             timerTillDestroyedBanner = 0f;
             GameObject destroyedBanner = bannersInRange[0];
             Destroy(destroyedBanner);
             bannersInRange.RemoveAt(0);
             audioSource.PlayOneShot(sound_destroyFlagReligion);
-            destoryingBanner = false;
+            
         }
 /*        if (!destoryingBanner) {
             destoryingBanner = true;
@@ -196,6 +195,7 @@ public class PlayerController : MonoBehaviour
 
     private void SpreadReligion() {
         audioSource.PlayOneShot(sound_spreadReligion);
+        Instantiate(spreadReligionParticles, transform.position, Quaternion.identity);
         foreach (GameObject follower in followerInRange) {
             follower.GetComponent<FollowerController>().isPlayerFollower = true;
             follower.GetComponent<FollowerController>().FollowNewTarget(transform, followerMaterial, secondaryColor);

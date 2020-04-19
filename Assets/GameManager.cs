@@ -79,6 +79,7 @@ public class GameManager {
     }
 
     private Vector3 FindRandomCenterPoint(List<GameObject> followers) {
+        
         if (followers.Count == 0)
             return Vector3.zero;
 
@@ -88,15 +89,20 @@ public class GameManager {
         Bounds bounds = new Bounds(followers[0].transform.position, Vector3.zero);
         int randomStart = Random.Range(1, followers.Count - 1);
         int randomEnd = Random.Range(randomStart, Random.Range(randomStart + 1, followers.Count));
+
         if (randomEnd <= randomStart) {
             do {
                 randomEnd = Random.Range(randomStart, Random.Range(randomStart + 1, followers.Count));
             } while (randomEnd <= randomStart);
         }
-        for (var i = randomStart; i < randomEnd; i++)
+
+        for (var i = randomStart; i < randomEnd; i++) { 
             if (!followers[i].GetComponent<FollowerController>().isFollowing) {
                 bounds.Encapsulate(followers[i].transform.position);
             }
+        }
+
+        Debug.Log(bounds.center);
         return bounds.center;
     }
 

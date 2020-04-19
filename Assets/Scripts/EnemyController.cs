@@ -29,12 +29,12 @@ public class EnemyController : MonoBehaviour
 
     private float timerTillCanSpread;
 
-    private float wanderTimer;
+/*    private float wanderTimer;
 
     private float wanderRadius;
 
     private IEnumerator spawnFlag;
-    private IEnumerator spreadReligion;
+    private IEnumerator spreadReligion;*/
 
     private bool canSpread;
     /*private IEnumerator coroutine;*/
@@ -43,8 +43,8 @@ public class EnemyController : MonoBehaviour
 
     private void Awake() {
         villages = GameObject.FindGameObjectsWithTag("village");
-        wanderTimer = 0f;
-        wanderRadius = 10f;
+       /* wanderTimer = 0f;
+        wanderRadius = 10f;*/
         canSpread = true;
         canConvertTimer = 0f;
         canPlaceBannerTimer = GenerateNewBannerTimer();
@@ -63,14 +63,6 @@ public class EnemyController : MonoBehaviour
         }
 
         Vector3 villagePos = villages[Random.Range(0, villages.Length)].transform.position;
-/*        float dist = Vector3.Distance(villagePos, transform.position);
-
-
-        if (dist < 10f) {
-            enemyNavMeshAgent.SetDestination(villagePos);
-        } else {*/
-
-            /*timer += Time.deltaTime;*/
             timerTillBannerSpawn += Time.deltaTime;
             timerTillCanSpread += Time.deltaTime;
 
@@ -86,12 +78,8 @@ public class EnemyController : MonoBehaviour
             }
 
             if (enemyNavMeshAgent.remainingDistance < 2f) {
-                /*Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);*/
                 enemyNavMeshAgent.SetDestination(GameManager.Instance.GetRandomCenterPoint());
-/*                timer = 0;
-                wanderTimer = GenerateWanderTimer();*/
             }
-        /*}*/
     }
 
     private void SetEnemyColors() {

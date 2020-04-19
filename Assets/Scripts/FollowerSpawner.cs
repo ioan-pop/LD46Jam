@@ -37,4 +37,11 @@ public class FollowerSpawner : MonoBehaviour
         return pos;
     }
 
+    void OnDrawGizmos() {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, radius);
+    }
+
+
 }

@@ -117,24 +117,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4091708079697363323, guid: 3715a387f27097e438147049d8cc2310,
         type: 3}
-      propertyPath: genderColour.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4091708079697363323, guid: 3715a387f27097e438147049d8cc2310,
-        type: 3}
       propertyPath: follower
       value: 
       objectReference: {fileID: 7249794722769613395}
-    - target: {fileID: 4091708079697363323, guid: 3715a387f27097e438147049d8cc2310,
-        type: 3}
-      propertyPath: genderColour.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f2b82054c65ddb8488dff8091a3fead2, type: 2}
-    - target: {fileID: 4091708079697363323, guid: 3715a387f27097e438147049d8cc2310,
-        type: 3}
-      propertyPath: genderColour.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 616d10f984d9e944aac24c81f543f09a, type: 2}
     - target: {fileID: 4091708079697363323, guid: 3715a387f27097e438147049d8cc2310,
         type: 3}
       propertyPath: meshRender

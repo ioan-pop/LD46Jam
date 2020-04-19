@@ -73,8 +73,14 @@ public class FollowerController : MonoBehaviour
 
         gender = Random.Range(0, 2);
 
-        meshRender.material = genderColour[gender];
-        genderMeshes[gender].SetActive(true);
+        /* meshRender.material = genderColour[gender]; */
+        if (gender == 0) {
+            genderMeshes[0].SetActive(true);
+            genderMeshes[1].SetActive(false);
+        } else {
+            genderMeshes[0].SetActive(false);
+            genderMeshes[1].SetActive(true);
+        }
 
         isTravelingToVillage = false;
         isFollowing = false;
