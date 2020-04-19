@@ -95,6 +95,21 @@ public class PlayerController : MonoBehaviour
                         }
                     }
                 }
+            }
+            if (Input.GetMouseButton(1)) {
+                RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+
+                foreach (RaycastHit hit in hits) {
+                    // TODO: Rethink getting component of each hit.
+                    // Alternatively, could use 'hit.transform.name', but that has it's own problems
+                    if (hit.transform.tag == "terrain") {
+                        playerNavMeshAgent.destination = hit.point;
+                    }
+                    if ( hit.transform.tag == "follower" ) {
+                        // Debug.Log("hit a follower");
+                        playerNavMeshAgent.destination = hit.point;
+                    }
+                }
             } 
         }
     }

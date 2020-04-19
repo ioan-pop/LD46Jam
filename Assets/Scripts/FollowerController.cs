@@ -9,6 +9,7 @@ public class FollowerController : MonoBehaviour
     public bool isFollowing;
 
     public Material[] genderColour;
+    public GameObject[] genderMeshes;
     
     public MeshRenderer meshRender;
     public GameObject follower;
@@ -69,7 +70,9 @@ public class FollowerController : MonoBehaviour
         villages = GameObject.FindGameObjectsWithTag("village");
 
         gender = Random.Range(0, 2);
+
         meshRender.material = genderColour[gender];
+        genderMeshes[gender].SetActive(true);
 
         isTravelingToVillage = false;
         isFollowing = false;
