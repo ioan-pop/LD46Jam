@@ -13,7 +13,10 @@ public class PlayerController : MonoBehaviour
     public CharacterController characterController;
     public Animator playerAnimator;
     public GameObject playerModel;
+
+    [Header("Sound")]
     public AudioClip sound_spreadReligion;
+    public AudioClip sound_destroyFlagReligion;
 
     [Header("Follower")]
     public GameObject banner;
@@ -77,40 +80,24 @@ public class PlayerController : MonoBehaviour
     
     private void HandleMouse() {
         if (!isClickMovement) {
+
             posX = Input.GetAxis("Horizontal");
             posZ = Input.GetAxis("Vertical");
+
             Vector3 movePlayer = transform.right * posX + transform.forward * posZ;
             characterController.SimpleMove(movePlayer * 5f);
+
         } else {
             if (!destoryingBanner) {
                 if (Input.GetMouseButton(1)) {
                     RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
-
                     foreach (RaycastHit hit in hits) {
-                        // TODO: Rethink getting component of each hit.
-                        // Alternatively, could use 'hit.transform.name', but that has it's own problems
-                        var terrain = hit.transform.GetComponent<Terrain>();
-                        if (terrain != null) {
+                        if (hit.transform.tag == "terrain") {
                             playerNavMeshAgent.destination = hit.point;
                         }
                     }
                 }
             }
-            if (Input.GetMouseButton(1)) {
-                RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
-
-                foreach (RaycastHit hit in hits) {
-                    // TODO: Rethink getting component of each hit.
-                    // Alternatively, could use 'hit.transform.name', but that has it's own problems
-                    if (hit.transform.tag == "terrain") {
-                        playerNavMeshAgent.destination = hit.point;
-                    }
-                    if ( hit.transform.tag == "follower" ) {
-                        // Debug.Log("hit a follower");
-                        playerNavMeshAgent.destination = hit.point;
-                    }
-                }
-            } 
         }
     }
 
@@ -191,6 +178,7 @@ public class PlayerController : MonoBehaviour
             GameObject destroyedBanner = bannersInRange[0];
             bannersInRange.RemoveAt(0);
             Destroy(destroyedBanner);
+            audioSource.PlayOneShot(sound_destroyFlagReligion);
         }
         if (!destoryingBanner) {
             destoryingBanner = true;
