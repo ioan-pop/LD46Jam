@@ -57,10 +57,11 @@ public class FollowerController : MonoBehaviour
     private bool findPartner;
     private bool startBirth;
     private bool spawnNewFollower;
-
     private bool prayingAtBAnner;
+    private Color bannerColor;
 
     public bool isPlayerFollower;
+
     private void Awake() {
         partnerCollider = GetComponent<SphereCollider>();
         startBirth = false;
@@ -120,7 +121,8 @@ public class FollowerController : MonoBehaviour
             if (followerNavMeshAgent.remainingDistance < 2f) {
                 timePrayingAtBanner += Time.deltaTime;
                 if (timePrayingAtBanner > timeToConvertAtBanner) {
-                    FollowNewTarget(targetTransform, followerColour);
+                    // TODO: Pick an actual color based off banner
+                    FollowNewTarget(targetTransform, followerColour, bannerColor);
                 }
             }
         } else { // not following a preist
@@ -182,12 +184,27 @@ public class FollowerController : MonoBehaviour
         }
     }
     
-    public void FollowNewTarget(Transform newTarget, Material material) {
+    public void FollowNewTarget(Transform newTarget, Material material, Color hatColor) {
         if (!isFollowing) {
             isFollowing = true;
             meshRender.material = material;
             targetTransform = newTarget;
             partnerCollider.enabled = false;
+            if(gender == 0) {
+                // Male, material 1
+                foreach(Transform child in transform) {
+                    if(child.name == "villager") {
+                        child.GetComponent<MeshRenderer>().materials[3].color = hatColor;
+                    }
+                }
+            } else {
+                // Female, material 2
+                foreach(Transform child in transform) {
+                    if(child.name == "female_villager") {
+                        child.GetComponent<MeshRenderer>().materials[3].color = hatColor;
+                    }
+                }
+            }
             GameManager.Instance.AddPriestFollower(isPlayerFollower);
         }
     }
@@ -213,12 +230,13 @@ public class FollowerController : MonoBehaviour
         }
     }
 
-    public void PrayAtBanner(Transform newPos, Transform player, bool playerCheck) {
+    public void PrayAtBanner(Transform newPos, Transform player, bool playerCheck, Color newBannerColor) {
         isPlayerFollower = playerCheck;
         if (!prayingAtBAnner) {
             followerNavMeshAgent.SetDestination(newPos.position);
             targetTransform = player;
             prayingAtBAnner = true;
+            bannerColor = newBannerColor;
         }
     }
 

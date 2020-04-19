@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour
         audioSource.PlayOneShot(sound_spreadReligion);
         foreach (GameObject follower in followerInRange) {
             follower.GetComponent<FollowerController>().isPlayerFollower = true;
-            follower.GetComponent<FollowerController>().FollowNewTarget(transform, followerMaterial);
+            follower.GetComponent<FollowerController>().FollowNewTarget(transform, followerMaterial, secondaryColor);
         }
     }
 

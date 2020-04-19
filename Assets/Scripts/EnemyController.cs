@@ -135,7 +135,7 @@ public class EnemyController : MonoBehaviour
 
     private void SpreadReligion() {
         foreach (GameObject follower in followerInRange) {
-            follower.GetComponent<FollowerController>().FollowNewTarget(transform, followerMaterial);
+            follower.GetComponent<FollowerController>().FollowNewTarget(transform, followerMaterial, secondaryColor);
         }
     }
 

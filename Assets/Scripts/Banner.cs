@@ -11,6 +11,10 @@ public class Banner : MonoBehaviour {
     private Material followerMaterial;
     private AudioSource audioSource;
     private bool isPlayer;
+
+    private Color bannerPrimaryColor;
+    private Color bannerSecondaryColor;
+
     void Start() {
         Instantiate(bannerPlacementFX, transform.position, Quaternion.identity);
         /*audioSource.PlayOneShot(bannerPlacement);*/
@@ -23,6 +27,8 @@ public class Banner : MonoBehaviour {
         Material[] bannerMaterials = gameObject.GetComponentInChildren<MeshRenderer>().materials;
         bannerMaterials[2].color = primaryColor;
         bannerMaterials[0].color = secondaryColor;
+        bannerPrimaryColor = primaryColor;
+        bannerSecondaryColor = secondaryColor;
     }
 
     private void OnTriggerEnter(Collider c) {
@@ -30,7 +36,7 @@ public class Banner : MonoBehaviour {
             followerController = c.gameObject.GetComponent<FollowerController>();
             followerController.SetFollowerMaterial(followerMaterial);
             followerController.isPlayerFollower = isPlayer;
-            followerController.PrayAtBanner(transform, player, isPlayer);
+            followerController.PrayAtBanner(transform, player, isPlayer, bannerSecondaryColor);
             Debug.Log(isPlayer);
         }
     }
