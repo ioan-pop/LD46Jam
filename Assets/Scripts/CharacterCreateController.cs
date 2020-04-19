@@ -107,7 +107,13 @@ public class CharacterCreateController : MonoBehaviour
     }
 
     public void CompleteCharacterCreation() {
-        print(religionName.text);
+        if(PlayerDetailsManager.instance != null) {
+            PlayerDetailsManager.instance.primaryColor = PrimaryColors[primaryColorIndex];
+            PlayerDetailsManager.instance.darkPrimaryColor = playerMaterials[4].color;
+            PlayerDetailsManager.instance.secondaryColor = SecondaryColors[secondaryColorIndex];
+            PlayerDetailsManager.instance.skinColor = SkinColors[skinColorIndex];
+            PlayerDetailsManager.instance.religionName = religionName.text;
+        }
         SceneManager.LoadScene(levelToLoad);
     }
 }

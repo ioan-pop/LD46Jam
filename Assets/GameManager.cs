@@ -49,7 +49,7 @@ public class GameManager {
         if (allFollowers.Count >= maxFollowers) {
             canPopulate = false;
         }
-        Debug.Log(allFollowers.Count);
+        // Debug.Log(allFollowers.Count);
     }
 
     public bool CanBirth() {

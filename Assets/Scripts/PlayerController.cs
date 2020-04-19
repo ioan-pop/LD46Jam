@@ -5,25 +5,52 @@ using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("General")]
+    public Camera followCamera;
     public bool isClickMovement;
-
-    public Material followerMaterial;
-
     public NavMeshAgent playerNavMeshAgent;
     public CharacterController characterController;
+    public Animator playerAnimator;
+    public GameObject playerModel;
 
+    [Header("Follower")]
     public GameObject banner;
+    public Material followerMaterial;
 
     private List<GameObject> followerInRange = new List<GameObject>();
-
-
     private float posX;
     private float posZ;
+    private Material[] playerMaterials;
+    private Color primaryColor;
+    private Color secondaryColor;
 
-
+    void Start() {
+        playerMaterials = playerModel.GetComponent<MeshRenderer>().materials;
+        SetPlayerColors();
+    }
 
     void Update() {
         HandleMouse();
+        UpdateCamera();
+        HandleAnimation();
+    }
+
+    private void SetPlayerColors() {
+        if(PlayerDetailsManager.instance != null) {
+            primaryColor = PlayerDetailsManager.instance.primaryColor;
+            secondaryColor = PlayerDetailsManager.instance.secondaryColor;
+            // Robe color
+            playerMaterials[0].color = PlayerDetailsManager.instance.primaryColor;
+            // Cape color
+            playerMaterials[4].color = PlayerDetailsManager.instance.darkPrimaryColor;
+            // Secondary color
+            playerMaterials[1].color = PlayerDetailsManager.instance.secondaryColor;
+            // Skin color
+            playerMaterials[2].color = PlayerDetailsManager.instance.skinColor;
+        } else {
+            primaryColor = Color.black;
+            secondaryColor = Color.blue;
+        }
     }
     
     private void HandleMouse()
@@ -46,7 +73,7 @@ public class PlayerController : MonoBehaviour
                         playerNavMeshAgent.destination = hit.point;
                     }
                     if ( hit.transform.tag == "follower" ) {
-                        Debug.Log("hit a follower");
+                        // Debug.Log("hit a follower");
                         playerNavMeshAgent.destination = hit.point;
                     }
                 }
@@ -58,6 +85,18 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E)) {
                 DropBanner();
             }
+        }
+    }
+
+    private void UpdateCamera() {
+        followCamera.transform.position = new Vector3(transform.position.x, transform.position.y + 10f, transform.position.z - 10f);
+    }
+
+    private void HandleAnimation() {
+        if(Vector3.Distance(transform.position, playerNavMeshAgent.destination) > 0.5f) {
+            playerAnimator.SetFloat("Run", 1);
+        } else {
+            playerAnimator.SetFloat("Run", 0);
         }
     }
 
@@ -81,7 +120,7 @@ public class PlayerController : MonoBehaviour
         Quaternion rotationOfTheParentOfTheParent = transform.rotation;
         /*Instantiate(banner, new Vector3 (transform.position.x, transform.position.y, transform.position.z + 3), Quaternion.identity);*/
         GameObject bannerPlaced = Instantiate(banner, transform.position + (transform.forward * 2) + (transform.right * 2), rotationOfTheParentOfTheParent);
-        bannerPlaced.GetComponent<Banner>().SetPlayerWhoPlace(transform, followerMaterial);
+        bannerPlaced.GetComponent<Banner>().SetBannerSettings(transform, followerMaterial, primaryColor, secondaryColor);
     }
 
     private void SpreadReligion() {
@@ -91,6 +130,6 @@ public class PlayerController : MonoBehaviour
     }
 
     private Ray GetMouseRay() {
-        return Camera.main.ScreenPointToRay(Input.mousePosition);
+        return followCamera.ScreenPointToRay(Input.mousePosition);
     }
 }

@@ -9,6 +9,9 @@ public class EnemyController : MonoBehaviour
 
     public Material followerMaterial;
 
+    public Color primaryColor;
+    public Color secondaryColor;
+
     public Transform targetTransform;
     public GameObject banner;
 
@@ -139,7 +142,7 @@ public class EnemyController : MonoBehaviour
         Quaternion rotationOfTheParentOfTheParent = transform.rotation;
         /*Instantiate(banner, new Vector3 (transform.position.x, transform.position.y, transform.position.z + 3), Quaternion.identity);*/
         GameObject bannerPlaced = Instantiate(banner, transform.position + (transform.forward * 2) + (transform.right * 2), rotationOfTheParentOfTheParent);
-        bannerPlaced.GetComponent<Banner>().SetPlayerWhoPlace(transform, followerMaterial);
+        bannerPlaced.GetComponent<Banner>().SetBannerSettings(transform, followerMaterial, primaryColor, secondaryColor);
     }
 
 }

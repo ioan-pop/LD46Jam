@@ -3,23 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Banner : MonoBehaviour {
+    public GameObject bannerPlacementFX;
 
     private Transform player;
     private FollowerController followerController;
     private Material followerMaterial;
-    // Start is called before the first frame update
+
     void Start() {
-        
+        Instantiate(bannerPlacementFX, transform.position, Quaternion.identity);
     }
 
-    // Update is called once per frame
-    void Update() {
-
-    }
-
-    public void SetPlayerWhoPlace(Transform playerPlace, Material material) {
+    public void SetBannerSettings(Transform playerPlace, Material material, Color primaryColor, Color secondaryColor) {
         player = playerPlace;
         followerMaterial = material;
+        Material[] bannerMaterials = gameObject.GetComponentInChildren<MeshRenderer>().materials;
+        bannerMaterials[2].color = primaryColor;
+        bannerMaterials[0].color = secondaryColor;
     }
 
     private void OnTriggerEnter(Collider c) {
