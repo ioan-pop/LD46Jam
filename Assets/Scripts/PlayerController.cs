@@ -72,9 +72,7 @@ public class PlayerController : MonoBehaviour
                 foreach (RaycastHit hit in hits) {
                     // TODO: Rethink getting component of each hit.
                     // Alternatively, could use 'hit.transform.name', but that has it's own problems
-                    print(hit.transform.name);
                     if (hit.transform.tag == "terrain") {
-                        print("hitttt");
                         playerNavMeshAgent.destination = hit.point;
                     }
                     if ( hit.transform.tag == "follower" ) {
