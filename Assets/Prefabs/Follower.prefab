@@ -74,7 +74,7 @@ MonoBehaviour:
   isFollowing: 0
   genderColour: []
   genderMeshes:
-  - {fileID: 0}
+  - {fileID: 3622110876372369886}
   - {fileID: 3363951691320658292}
   meshRender: {fileID: 0}
   follower: {fileID: 0}
@@ -348,6 +348,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc12d10293f4ef7468edac164a323819, type: 3}
+--- !u!1 &3622110876372369886 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: dc12d10293f4ef7468edac164a323819,
+    type: 3}
+  m_PrefabInstance: {fileID: 4712383351326922967}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &296968737646965709 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: dc12d10293f4ef7468edac164a323819,
