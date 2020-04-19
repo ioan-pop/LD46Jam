@@ -12,8 +12,9 @@ public class PlayerController : MonoBehaviour
     public NavMeshAgent playerNavMeshAgent;
     public Animator playerAnimator;
     public GameObject playerModel;
-    public CharacterController characterController;
+   
     public GameObject spreadReligionParticles;
+
     [Header("Sound")]
     public AudioClip sound_spreadReligion;
     public AudioClip sound_destroyFlagReligion;
@@ -75,23 +76,14 @@ public class PlayerController : MonoBehaviour
     
     private void HandleMouse() {
         if (!destoryingBanner) {
-            if (isClickMovement) {
-                if (Input.GetMouseButton(1)) {
-                    RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
-                    foreach (RaycastHit hit in hits) {
-                        if (hit.transform.tag == "terrain") {
-                            playerNavMeshAgent.destination = hit.point;
-                        }
+            if (Input.GetMouseButton(1)) {
+                RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+                foreach (RaycastHit hit in hits) {
+                    if (hit.transform.tag == "terrain") {
+                        playerNavMeshAgent.destination = hit.point;
                     }
                 }
-            } else {
-                float x = Input.GetAxis("Horizontal");
-                float z = Input.GetAxis("Vertical");
-
-                Vector3 move = transform.right * x + transform.forward * z;
-                characterController.SimpleMove(move * 5);
             }
-            
         }
     }
 

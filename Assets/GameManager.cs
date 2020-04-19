@@ -102,7 +102,6 @@ public class GameManager {
             }
         }
 
-        Debug.Log(bounds.center);
         return bounds.center;
     }
 

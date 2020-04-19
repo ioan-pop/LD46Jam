@@ -22,43 +22,34 @@ public class UIController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         SetFollowerCounters();
         SetGameTime();
         HandleEscapeMenu();
     }
 
-    private void SetFollowerCounters()
-    {
+    private void SetFollowerCounters() {
         totalCounter.text = GameManager.Instance.GetTotalFollowers().ToString();
         enemyCounter.text = GameManager.Instance.GetEnemyFollowers().ToString();
         playerCounter.text = GameManager.Instance.GetPlayerFollowers().ToString();
     }
 
-    private void SetGameTime()
-    {
-        if (TimeManager.instance != null)
-        {
+    private void SetGameTime() {
+        if (TimeManager.instance != null) {
             gameTimeCounter.text = ((int)TimeManager.instance.gameTimeInSeconds).ToString();
-        }
-        else
-        {
+        } else {
             gameTimeCounter.text = "???";
         }
     }
 
     private void HandleEscapeMenu() {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
             ToggleEscapeMenu();
         }
     }
 
-    private void ToggleEscapeMenu()
-    {
-        if (escapeMenuIsOpen)
-        {
+    private void ToggleEscapeMenu() {
+        if (escapeMenuIsOpen) {
             escapeMenuIsOpen = false;
             escapeMenu.SetActive(false);
             Time.timeScale = 1f;

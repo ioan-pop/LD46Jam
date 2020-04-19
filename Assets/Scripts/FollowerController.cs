@@ -86,7 +86,7 @@ public class FollowerController : MonoBehaviour
         isFollowing = false;
 
         wanderTimer = GenerateWanderTimer();
-        newVillageCountdownTimer = GenerateVillageTravelTimer();
+        newVillageCountdownTimer = 0f;
         newPartnerCountdown = GeneratePartnerTimer();
 
         if (wanderRadius == 0) {
@@ -260,15 +260,15 @@ public class FollowerController : MonoBehaviour
     }
 
     private float GenerateVillageTravelTimer() {
-        return Random.Range(5f, 15f);
+        return Random.Range(15f, 30f);
     }
 
     private float GenerateWanderTimer() {
-        return Random.Range(0, 10.0f);
+        return Random.Range(2, 15.0f);
     }
 
     private float GeneratePartnerTimer() {
-        return Random.Range(30f, 120f);
+        return Random.Range(45f, 120f);
     }
 
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask) {
