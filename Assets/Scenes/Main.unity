@@ -186,12 +186,12 @@ PrefabInstance:
     - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
       propertyPath: maxFollowerCount
-      value: 50
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
       propertyPath: radius
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1060919159315187481, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
@@ -393,12 +393,12 @@ PrefabInstance:
     - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
       propertyPath: maxFollowerCount
-      value: 50
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
       propertyPath: radius
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1060919159315187481, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
@@ -483,12 +483,12 @@ PrefabInstance:
     - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
       propertyPath: maxFollowerCount
-      value: 50
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
       propertyPath: radius
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1060919159315187481, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
@@ -2203,12 +2203,12 @@ PrefabInstance:
     - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
       propertyPath: maxFollowerCount
-      value: 50
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
       propertyPath: radius
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1060919159315187481, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
@@ -2419,7 +2419,12 @@ PrefabInstance:
     - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
       propertyPath: maxFollowerCount
-      value: 50
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
+        type: 3}
+      propertyPath: radius
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1060919159315187481, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
@@ -2505,12 +2510,12 @@ PrefabInstance:
     - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
       propertyPath: maxFollowerCount
-      value: 50
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
       propertyPath: radius
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1060919159315187481, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
@@ -2615,7 +2620,12 @@ PrefabInstance:
     - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
       propertyPath: maxFollowerCount
-      value: 50
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
+        type: 3}
+      propertyPath: radius
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1060919159315187481, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
@@ -3016,12 +3026,12 @@ PrefabInstance:
     - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
       propertyPath: maxFollowerCount
-      value: 50
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
       propertyPath: radius
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1060919159315187481, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
@@ -4603,6 +4613,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
+        type: 3}
+      propertyPath: radius
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1060919159315187480, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
+        type: 3}
+      propertyPath: maxFollowerCount
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1060919159315187481, guid: 5eb8eba84f71b2d459915c2d6fa84b67,
         type: 3}
