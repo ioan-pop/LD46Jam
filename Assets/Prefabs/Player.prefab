@@ -143,11 +143,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followCamera: {fileID: 0}
   isClickMovement: 1
+  enableCameraMouseRotation: 0
   playerNavMeshAgent: {fileID: 2390837504197842014}
   characterController: {fileID: 0}
-  playerAnimator: {fileID: 0}
-  playerModel: {fileID: 0}
-  sound_spreadReligion: {fileID: 0}
+  playerAnimator: {fileID: 782853403792374874}
+  playerModel: {fileID: 5912130220684321587}
+  sound_spreadReligion: {fileID: 8300000, guid: dd935def5da8693489031c8d56227898,
+    type: 3}
   banner: {fileID: 8873270660578394913, guid: 81fe0f3064dfb134191c5a2acbe6eedb, type: 3}
   followerMaterial: {fileID: 0}
 --- !u!195 &2390837504197842014
@@ -320,9 +322,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8305987045e25514db53f029666515ef, type: 3}
+--- !u!1 &5912130220684321587 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 8305987045e25514db53f029666515ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 2390837503431211578}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7230321137591996704 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 8305987045e25514db53f029666515ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 2390837503431211578}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &782853403792374874 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: -6057140222963153312, guid: 8305987045e25514db53f029666515ef,
     type: 3}
   m_PrefabInstance: {fileID: 2390837503431211578}
   m_PrefabAsset: {fileID: 0}
