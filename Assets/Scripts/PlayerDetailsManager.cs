@@ -9,6 +9,7 @@ public class PlayerDetailsManager : MonoBehaviour
     void Awake() {
         if (PlayerDetailsManager.instance != null) {
             Destroy(gameObject);
+            return;
         }
         instance = this;
     }

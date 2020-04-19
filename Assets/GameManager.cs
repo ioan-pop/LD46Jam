@@ -18,7 +18,7 @@ public class GameManager {
     private GameManager() {
         canPopulate = true;
         allFollowers = new List<GameObject>();
-        maxFollowers = 6000;
+        maxFollowers = 600;
         playerFollowersCounter = 0;
         enemyFollowersCounter = 0;
     }
