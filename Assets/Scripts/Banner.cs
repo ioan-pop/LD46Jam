@@ -10,13 +10,14 @@ public class Banner : MonoBehaviour {
     private FollowerController followerController;
     private Material followerMaterial;
     private AudioSource audioSource;
-    
+    private bool isPlayer;
     void Start() {
         Instantiate(bannerPlacementFX, transform.position, Quaternion.identity);
         /*audioSource.PlayOneShot(bannerPlacement);*/
     }
 
-    public void SetBannerSettings(Transform playerPlace, Material material, Color primaryColor, Color secondaryColor) {
+    public void SetBannerSettings(bool playCheck, Transform playerPlace, Material material, Color primaryColor, Color secondaryColor) {
+        isPlayer = playCheck;
         player = playerPlace;
         followerMaterial = material;
         Material[] bannerMaterials = gameObject.GetComponentInChildren<MeshRenderer>().materials;
@@ -28,7 +29,9 @@ public class Banner : MonoBehaviour {
         if (c.gameObject.CompareTag("follower")) {
             followerController = c.gameObject.GetComponent<FollowerController>();
             followerController.SetFollowerMaterial(followerMaterial);
-            followerController.PrayAtBanner(transform, player);
+            followerController.isPlayerFollower = isPlayer;
+            followerController.PrayAtBanner(transform, player, isPlayer);
+            Debug.Log(isPlayer);
         }
     }
 }

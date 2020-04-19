@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour
             posZ = Input.GetAxis("Vertical");
 
             Vector3 movePlayer = transform.right * posX + transform.forward * posZ;
+
             characterController.SimpleMove(movePlayer * 5f);
 
         } else {
@@ -105,11 +106,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && canDoAction) {
             DropBanner();
         }
-        if (Input.GetKey(KeyCode.Q)) {
-            DestroyBanner();
-        } else if (Input.GetKeyUp(KeyCode.Q)) {
-            timerTillDestroyedBanner = 0f;
-            destoryingBanner = false;
+        if (bannersInRange.Count > 0) {
+            if (Input.GetKey(KeyCode.Q)) {
+                DestroyBanner();
+                destoryingBanner = true;
+            } else if (Input.GetKeyUp(KeyCode.Q)) {
+                timerTillDestroyedBanner = 0f;
+                destoryingBanner = false;
+            }
         }
     }
 
@@ -167,30 +171,33 @@ public class PlayerController : MonoBehaviour
 
     private void DropBanner() {
         Quaternion rotationOfTheParentOfTheParent = transform.rotation;
-        /*Instantiate(banner, new Vector3 (transform.position.x, transform.position.y, transform.position.z + 3), Quaternion.identity);*/
         GameObject bannerPlaced = Instantiate(banner, transform.position + (transform.forward * 2) + (transform.right * 2), rotationOfTheParentOfTheParent);
-        bannerPlaced.GetComponent<Banner>().SetBannerSettings(transform, followerMaterial, primaryColor, secondaryColor);
+        bannerPlaced.GetComponent<Banner>().SetBannerSettings(true,transform, followerMaterial, primaryColor, secondaryColor);
     }
 
     private void DestroyBanner() {
         timerTillDestroyedBanner += Time.deltaTime;
         if (timerTillDestroyedBanner >= timeToDestroyBanner) {
+            timerTillDestroyedBanner = 0f;
             GameObject destroyedBanner = bannersInRange[0];
-            bannersInRange.RemoveAt(0);
             Destroy(destroyedBanner);
+            bannersInRange.RemoveAt(0);
             audioSource.PlayOneShot(sound_destroyFlagReligion);
+            destoryingBanner = false;
         }
-        if (!destoryingBanner) {
+/*        if (!destoryingBanner) {
             destoryingBanner = true;
+        }*/
+        if (destoryingBanner) {
+            playerNavMeshAgent.SetDestination(bannersInRange[0].transform.position);
+            transform.LookAt(bannersInRange[0].transform);
         }
-        playerNavMeshAgent.SetDestination(bannersInRange[0].transform.position);
-        transform.LookAt(bannersInRange[0].transform);
-        
     }
 
     private void SpreadReligion() {
         audioSource.PlayOneShot(sound_spreadReligion);
         foreach (GameObject follower in followerInRange) {
+            follower.GetComponent<FollowerController>().isPlayerFollower = true;
             follower.GetComponent<FollowerController>().FollowNewTarget(transform, followerMaterial);
         }
     }

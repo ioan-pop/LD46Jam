@@ -55,13 +55,14 @@ public class EnemyController : MonoBehaviour
         }
 
         Vector3 villagePos = villages[Random.Range(0, villages.Length)].transform.position;
-        float dist = Vector3.Distance(villagePos, transform.position);
+/*        float dist = Vector3.Distance(villagePos, transform.position);
+
 
         if (dist < 10f) {
             enemyNavMeshAgent.SetDestination(villagePos);
-        } else {
+        } else {*/
 
-            timer += Time.deltaTime;
+            /*timer += Time.deltaTime;*/
             timerTillBannerSpawn += Time.deltaTime;
             timerTillCanSpread += Time.deltaTime;
 
@@ -76,13 +77,13 @@ public class EnemyController : MonoBehaviour
                 canConvertTimer = GenerateSpreadTimer();
             }
 
-            if (timer >= wanderTimer) {
+            if (enemyNavMeshAgent.remainingDistance < 2f) {
                 /*Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);*/
                 enemyNavMeshAgent.SetDestination(GameManager.Instance.GetRandomCenterPoint());
-                timer = 0;
-                wanderTimer = GenerateWanderTimer();
+/*                timer = 0;
+                wanderTimer = GenerateWanderTimer();*/
             }
-        }
+        /*}*/
     }
 
 /*    private IEnumerator SpawnBanner(float waitTime) {
@@ -142,7 +143,7 @@ public class EnemyController : MonoBehaviour
         Quaternion rotationOfTheParentOfTheParent = transform.rotation;
         /*Instantiate(banner, new Vector3 (transform.position.x, transform.position.y, transform.position.z + 3), Quaternion.identity);*/
         GameObject bannerPlaced = Instantiate(banner, transform.position + (transform.forward * 2) + (transform.right * 2), rotationOfTheParentOfTheParent);
-        bannerPlaced.GetComponent<Banner>().SetBannerSettings(transform, followerMaterial, primaryColor, secondaryColor);
+        bannerPlaced.GetComponent<Banner>().SetBannerSettings(false, transform, followerMaterial, primaryColor, secondaryColor);
     }
 
 }

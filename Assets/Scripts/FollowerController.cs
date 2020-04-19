@@ -60,6 +60,7 @@ public class FollowerController : MonoBehaviour
 
     private bool prayingAtBAnner;
 
+    public bool isPlayerFollower;
     private void Awake() {
         partnerCollider = GetComponent<SphereCollider>();
         startBirth = false;
@@ -180,12 +181,15 @@ public class FollowerController : MonoBehaviour
             }
         }
     }
-
+    
     public void FollowNewTarget(Transform newTarget, Material material) {
-        meshRender.material = material;
-        targetTransform = newTarget;
-        isFollowing = true;
-        partnerCollider.enabled = false;
+        if (!isFollowing) {
+            isFollowing = true;
+            meshRender.material = material;
+            targetTransform = newTarget;
+            partnerCollider.enabled = false;
+            GameManager.Instance.AddPriestFollower(isPlayerFollower);
+        }
     }
 
     public void SetBirth(bool toSpawnNewFollower) {
@@ -209,7 +213,8 @@ public class FollowerController : MonoBehaviour
         }
     }
 
-    public void PrayAtBanner(Transform newPos, Transform player) {
+    public void PrayAtBanner(Transform newPos, Transform player, bool playerCheck) {
+        isPlayerFollower = playerCheck;
         if (!prayingAtBAnner) {
             followerNavMeshAgent.SetDestination(newPos.position);
             targetTransform = player;

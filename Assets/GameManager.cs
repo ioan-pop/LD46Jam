@@ -9,14 +9,18 @@ public class GameManager {
     private static GameManager instance;
     private bool canPopulate;
 
-    [SerializeField]
     private List<GameObject> allFollowers;
+    private int playerFollowersCounter;
+    private int enemyFollowersCounter;
+
     private GameObject[] followers;
 
     private GameManager() {
         canPopulate = true;
         allFollowers = new List<GameObject>();
-        maxFollowers = 400;
+        maxFollowers = 600;
+        playerFollowersCounter = 0;
+        enemyFollowersCounter = 0;
     }
 
     public static GameManager Instance {
@@ -50,6 +54,24 @@ public class GameManager {
             canPopulate = false;
         }
         // Debug.Log(allFollowers.Count);
+    }
+
+    public void AddPriestFollower(bool isPlayer) {
+        if (isPlayer) {
+            this.playerFollowersCounter++;
+        } else {
+            this.enemyFollowersCounter++;
+        }
+    }
+
+    public int GetTotalFollowers() {
+        return allFollowers.Count;
+    }
+    public int GetPlayerFollowers() {
+        return playerFollowersCounter;
+    }
+    public int GetEnemyFollowers() {
+        return enemyFollowersCounter;
     }
 
     public bool CanBirth() {

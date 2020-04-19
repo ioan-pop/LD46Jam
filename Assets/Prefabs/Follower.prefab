@@ -77,7 +77,7 @@ MonoBehaviour:
   - {fileID: 3622110876372369886}
   - {fileID: 3363951691320658292}
   meshRender: {fileID: 0}
-  follower: {fileID: 0}
+  follower: {fileID: 4091708079697363320}
   wanderRadius: 0
   speed: 0
   targetTransform: {fileID: 0}
