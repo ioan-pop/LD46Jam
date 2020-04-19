@@ -31,7 +31,7 @@ public class Banner : MonoBehaviour {
             followerController.SetFollowerMaterial(followerMaterial);
             followerController.isPlayerFollower = isPlayer;
             followerController.PrayAtBanner(transform, player, isPlayer);
-            Debug.Log(isPlayer);
+/*            Debug.Log(isPlayer);*/
         }
     }
 }
