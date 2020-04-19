@@ -6,6 +6,7 @@ TagManager:
   tags:
   - follower
   - village
+  - banner
   layers:
   - Default
   - TransparentFX

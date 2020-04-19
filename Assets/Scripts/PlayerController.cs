@@ -12,21 +12,25 @@ public class PlayerController : MonoBehaviour
     public CharacterController characterController;
     public Animator playerAnimator;
     public GameObject playerModel;
+    public AudioClip sound_spreadReligion;
 
     [Header("Follower")]
     public GameObject banner;
     public Material followerMaterial;
 
     private List<GameObject> followerInRange = new List<GameObject>();
+    private List<GameObject> bannersInRange = new List<GameObject>();
+
     private float posX;
     private float posZ;
     private Material[] playerMaterials;
     private Color primaryColor;
     private Color secondaryColor;
-
+    private AudioSource audioSource;
     void Start() {
         playerMaterials = playerModel.GetComponent<MeshRenderer>().materials;
         SetPlayerColors();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update() {
@@ -106,12 +110,22 @@ public class PlayerController : MonoBehaviour
                 followerInRange.Add(c.gameObject);
             }
         }
+        if (c.gameObject.CompareTag("banner")) {
+            if (!bannersInRange.Contains(c.gameObject)) {
+                bannersInRange.Add(c.gameObject);
+            }
+        }
     }
 
     private void OnTriggerExit(Collider c) {
         if (c.gameObject.CompareTag("follower")) {
             if (followerInRange.Contains(c.gameObject)) {
                 followerInRange.Remove(c.gameObject);
+            }
+        }
+        if (c.gameObject.CompareTag("banner")) {
+            if (bannersInRange.Contains(c.gameObject)) {
+                bannersInRange.Remove(c.gameObject);
             }
         }
     }
@@ -124,6 +138,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void SpreadReligion() {
+        audioSource.PlayOneShot(sound_spreadReligion);
         foreach (GameObject follower in followerInRange) {
             follower.GetComponent<FollowerController>().FollowNewTarget(transform, followerMaterial);
         }
