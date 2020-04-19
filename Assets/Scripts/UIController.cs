@@ -15,6 +15,7 @@ public class UIController : MonoBehaviour {
             religionNameText.text = PlayerDetailsManager.instance.religionName;
         }
     }
+    
     // Update is called once per frame
     void Update() {
         totalCounter.text = GameManager.Instance.GetTotalFollowers().ToString();

@@ -46,6 +46,7 @@ public class CharacterCreateController : MonoBehaviour
             primaryColorIndex = 0;
         }
         SetPrimaryColor();
+        AudioManager.instance.PlayButtonClick();
     }
 
     public void PreviousPrimaryColor() {
@@ -54,6 +55,7 @@ public class CharacterCreateController : MonoBehaviour
             primaryColorIndex = PrimaryColors.Length - 1;
         }
         SetPrimaryColor();
+        AudioManager.instance.PlayButtonClick();
     }
 
     private void SetPrimaryColor() {
@@ -69,6 +71,7 @@ public class CharacterCreateController : MonoBehaviour
             secondaryColorIndex = 0;
         }
         SetSecondaryColor();
+        AudioManager.instance.PlayButtonClick();
     }
 
     public void PreviousSecondaryColor() {
@@ -77,6 +80,7 @@ public class CharacterCreateController : MonoBehaviour
             secondaryColorIndex = SecondaryColors.Length - 1;
         }
         SetSecondaryColor();
+        AudioManager.instance.PlayButtonClick();
     }
 
     private void SetSecondaryColor() {
@@ -91,6 +95,7 @@ public class CharacterCreateController : MonoBehaviour
             skinColorIndex = 0;
         }
         SetSkinColor();
+        AudioManager.instance.PlayButtonClick();
     }
 
     public void PreviousSkinColor() {
@@ -99,6 +104,7 @@ public class CharacterCreateController : MonoBehaviour
             skinColorIndex = SkinColors.Length - 1;
         }
         SetSkinColor();
+        AudioManager.instance.PlayButtonClick();
     }
 
     private void SetSkinColor() {
@@ -107,6 +113,7 @@ public class CharacterCreateController : MonoBehaviour
     }
 
     public void CompleteCharacterCreation() {
+        AudioManager.instance.PlayButtonClick();
         if(PlayerDetailsManager.instance != null) {
             PlayerDetailsManager.instance.primaryColor = PrimaryColors[primaryColorIndex];
             PlayerDetailsManager.instance.darkPrimaryColor = playerMaterials[4].color;
