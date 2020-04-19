@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
 
     public Color primaryColor;
     public Color secondaryColor;
+    public GameObject enemyModel;
 
     public Transform targetTransform;
     public GameObject banner;
@@ -38,6 +39,8 @@ public class EnemyController : MonoBehaviour
     private bool canSpread;
     /*private IEnumerator coroutine;*/
 
+    private Material[] enemyMaterials;
+
     private void Awake() {
         villages = GameObject.FindGameObjectsWithTag("village");
         wanderTimer = 0f;
@@ -45,6 +48,11 @@ public class EnemyController : MonoBehaviour
         canSpread = true;
         canConvertTimer = 0f;
         canPlaceBannerTimer = GenerateNewBannerTimer();
+    }
+
+    void Start() {
+        enemyMaterials = enemyModel.GetComponent<MeshRenderer>().materials;
+        SetEnemyColors();
     }
 
     // Update is called once per frame
@@ -84,6 +92,17 @@ public class EnemyController : MonoBehaviour
                 wanderTimer = GenerateWanderTimer();*/
             }
         /*}*/
+    }
+
+    private void SetEnemyColors() {
+        // Robe color
+        enemyMaterials[0].color = primaryColor;
+        // Cape color
+        enemyMaterials[4].color = new Color(primaryColor.r - 0.3f, primaryColor.g - 0.3f, primaryColor.b - 0.3f, 1);
+        // Secondary color
+        enemyMaterials[1].color = secondaryColor;
+        // Skin color
+        // enemyMaterials[2].color = PlayerDetailsManager.instance.skinColor;
     }
 
 /*    private IEnumerator SpawnBanner(float waitTime) {
@@ -135,7 +154,7 @@ public class EnemyController : MonoBehaviour
 
     private void SpreadReligion() {
         foreach (GameObject follower in followerInRange) {
-            follower.GetComponent<FollowerController>().FollowNewTarget(transform, followerMaterial);
+            follower.GetComponent<FollowerController>().FollowNewTarget(transform, followerMaterial, secondaryColor);
         }
     }
 
