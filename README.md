@@ -8,4 +8,4 @@ Our take on the theme was to create a game where we let the player create a reli
 
 [Click here to play](https://ioan-pop.github.io/LD46Jam/)
 
-Created by: [Robert Ochinski](https://github.com/ochinski) and [Ioan Pop](github.com/ioan-pop)
+Created by: [Robert Ochinski](https://github.com/ochinski) and [Ioan Pop](https://github.com/ioan-pop)
