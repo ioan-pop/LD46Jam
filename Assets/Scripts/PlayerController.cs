@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     private Color secondaryColor;
     private AudioSource audioSource;
 
-    private float actionTimer = 0f;
+    public float actionTimer = 0f;
     private float actionCoolDown = 4f;
 
     private float timerTillDestroyedBanner = 0f;
@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && canDoAction) {
             DropBanner();
             canDoAction = false;
+            actionTimer = 0f;
         }
         if (bannersInRange.Count > 0) {
             if (Input.GetKey(KeyCode.Q)) {
@@ -107,15 +108,16 @@ public class PlayerController : MonoBehaviour
     }
 
     private void HandleActionTimer() {
-        actionTimer += Time.deltaTime;
         if (actionTimer >= actionCoolDown) {
             canDoAction = true;
-            actionTimer = 0f;
+        } else {
+            actionTimer += Time.deltaTime;
         }
     }
 
     private void HandleSpreadReligion() {
         if (Input.GetKeyDown(KeyCode.Space) && canDoAction) {
+            actionTimer = 0f;
             canDoAction = false;
             SpreadReligion();
         }
