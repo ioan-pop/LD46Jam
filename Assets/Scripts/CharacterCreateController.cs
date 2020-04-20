@@ -18,6 +18,7 @@ public class CharacterCreateController : MonoBehaviour
 
     public GameObject priestModel;
     public GameObject bannerModel;
+    public GameObject missingNamePanel;
 
     public string levelToLoad;
 
@@ -114,13 +115,22 @@ public class CharacterCreateController : MonoBehaviour
 
     public void CompleteCharacterCreation() {
         AudioManager.instance.PlayButtonClick();
-        if(PlayerDetailsManager.instance != null) {
-            PlayerDetailsManager.instance.primaryColor = PrimaryColors[primaryColorIndex];
-            PlayerDetailsManager.instance.darkPrimaryColor = playerMaterials[4].color;
-            PlayerDetailsManager.instance.secondaryColor = SecondaryColors[secondaryColorIndex];
-            PlayerDetailsManager.instance.skinColor = SkinColors[skinColorIndex];
-            PlayerDetailsManager.instance.religionName = religionName.text;
+        if (religionName.text == "") {
+            missingNamePanel.SetActive(true);        
+        } else {
+            if(PlayerDetailsManager.instance != null) {
+                PlayerDetailsManager.instance.primaryColor = PrimaryColors[primaryColorIndex];
+                PlayerDetailsManager.instance.darkPrimaryColor = playerMaterials[4].color;
+                PlayerDetailsManager.instance.secondaryColor = SecondaryColors[secondaryColorIndex];
+                PlayerDetailsManager.instance.skinColor = SkinColors[skinColorIndex];
+                PlayerDetailsManager.instance.religionName = religionName.text;
+            }
+            SceneManager.LoadScene(levelToLoad);
         }
-        SceneManager.LoadScene(levelToLoad);
+    }
+    
+    public void CloseMissingNamePanel() {
+        missingNamePanel.SetActive(false);
+        AudioManager.instance.PlayButtonClick();
     }
 }
