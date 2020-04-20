@@ -43,4 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4221cf3aa36b68e49b5b6134a7105452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTimeInSeconds: 60
+  gameTimeInSeconds: 180
+  endScene: End Screen

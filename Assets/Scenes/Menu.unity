@@ -391,6 +391,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 207654504}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &264683511 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 8305987045e25514db53f029666515ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 583246126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &264683515 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 8305987045e25514db53f029666515ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 583246126}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &319406354
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,6 +491,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 319406354}
   m_CullTransparentMesh: 0
+--- !u!1 &320623763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 320623765}
+  - component: {fileID: 320623764}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &320623764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320623763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaefe4d498856684aba3e6f0ef963eaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerModel: {fileID: 264683511}
+--- !u!4 &320623765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320623763}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.8556376, y: 7.34274, z: -5.8833046}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 264683515}
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &348135797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -702,7 +759,7 @@ RectTransform:
   - {fileID: 1599799795}
   - {fileID: 1071755243}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -958,22 +1015,27 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 320623765}
     m_Modifications:
+    - target: {fileID: -6057140222963153312, guid: 8305987045e25514db53f029666515ef,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e27a434e9333432439f5b63f07138522, type: 2}
     - target: {fileID: -4216859302048453862, guid: 8305987045e25514db53f029666515ef,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.88
+      value: -12.735638
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 8305987045e25514db53f029666515ef,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -7.34274
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 8305987045e25514db53f029666515ef,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.05
+      value: 0.8333044
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 8305987045e25514db53f029666515ef,
         type: 3}
@@ -998,7 +1060,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 8305987045e25514db53f029666515ef,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 8305987045e25514db53f029666515ef,
         type: 3}
@@ -1556,7 +1618,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &857967019
 PrefabInstance:
@@ -1777,7 +1839,7 @@ PrefabInstance:
     - target: {fileID: 7237539459984973731, guid: 74eabad300209494d88726f07169ad9c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7237539459984973731, guid: 74eabad300209494d88726f07169ad9c,
         type: 3}
@@ -4329,7 +4391,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Chalice in Wonderland
+  m_Text: 50 Shades of Pray
 --- !u!222 &1876808806
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4642,7 +4704,7 @@ PrefabInstance:
     - target: {fileID: 1579531723471675257, guid: 053481726f69a144f8b2bdf639de1d67,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1579531723471675257, guid: 053481726f69a144f8b2bdf639de1d67,
         type: 3}

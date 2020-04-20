@@ -57,7 +57,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 1
 --- !u!114 &4091708079697363323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +81,7 @@ MonoBehaviour:
   wanderRadius: 0
   speed: 0
   targetTransform: {fileID: 0}
+  isPlayerFollower: 0
 --- !u!1 &4091708080326914900
 GameObject:
   m_ObjectHideFlags: 0

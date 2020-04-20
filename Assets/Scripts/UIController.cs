@@ -12,13 +12,20 @@ public class UIController : MonoBehaviour {
     public Text playerCounter;
     public Text religionNameText;
     public GameObject escapeMenu;
+    public GameObject fadeScreen;
+    public Text scrtollScreenReligionNameText;
 
     private bool escapeMenuIsOpen = false;
+    private bool fadeScreenDisabled = false;
+    private float scrollTimer = 10f;
+    private RectTransform fadeScreenTransform;
 
     void Start() {
         if (PlayerDetailsManager.instance != null) {
             religionNameText.text = PlayerDetailsManager.instance.religionName;
+            scrtollScreenReligionNameText.text = PlayerDetailsManager.instance.religionName;
         }
+        fadeScreenTransform = fadeScreen.GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
@@ -26,6 +33,9 @@ public class UIController : MonoBehaviour {
         SetFollowerCounters();
         SetGameTime();
         HandleEscapeMenu();
+        if (!fadeScreenDisabled) {
+            HandleFadeScreen();
+        }
     }
 
     private void SetFollowerCounters() {
@@ -66,12 +76,23 @@ public class UIController : MonoBehaviour {
     }
 
     public void GoToMainMenu() {
+        Time.timeScale = 1f;
         AudioManager.instance.PlayButtonClick();
         SceneManager.LoadScene(0);
     }
 
     public void QuitGame() {
+        Time.timeScale = 1f;
         AudioManager.instance.PlayButtonClick();
         Application.Quit();
+    }
+
+    private void HandleFadeScreen() {
+        scrollTimer -= Time.deltaTime;
+        fadeScreenTransform.localPosition += Vector3.up * Time.deltaTime * 500f;
+        if(scrollTimer <= 0) {
+            fadeScreenDisabled = true;
+            Destroy(fadeScreen);
+        }
     }
 }
