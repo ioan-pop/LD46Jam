@@ -11,6 +11,8 @@ public class UIController : MonoBehaviour {
     public Text enemyCounter;
     public Text playerCounter;
     public Text religionNameText;
+    public Text movementText;
+
     public GameObject escapeMenu;
     public GameObject fadeScreen;
 
@@ -26,6 +28,7 @@ public class UIController : MonoBehaviour {
     private float scrollTimer = 10f;
     private RectTransform fadeScreenTransform;
     private PlayerController playerController;
+
     void Start() {
         playerController = player.GetComponent<PlayerController>();
 
@@ -34,6 +37,8 @@ public class UIController : MonoBehaviour {
             scrtollScreenReligionNameText.text = PlayerDetailsManager.instance.religionName;
         }
         fadeScreenTransform = fadeScreen.GetComponent<RectTransform>();
+
+        SetMovementText();
     }
 
     // Update is called once per frame
@@ -44,6 +49,14 @@ public class UIController : MonoBehaviour {
         HandleBarCooldown();
         if (!fadeScreenDisabled) {
             HandleFadeScreen();
+        }
+    }
+
+    private void SetMovementText() {
+        if (GameManager.Instance.GetClickMovement()) {
+            movementText.text = "Mouse Click";
+        } else {
+            movementText.text = "WASD Move ";
         }
     }
 
