@@ -54,9 +54,9 @@ public class UIController : MonoBehaviour {
 
     private void SetMovementText() {
         if (GameManager.Instance.GetClickMovement()) {
-            movementText.text = "Mouse Click";
+            movementText.text = "(Mouse Click) Move";
         } else {
-            movementText.text = "WASD Move ";
+            movementText.text = "(WASD) Move";
         }
     }
 
@@ -102,6 +102,7 @@ public class UIController : MonoBehaviour {
     }
 
     public void GoToMainMenu() {
+        GameManager.Instance.ResetGame();
         Time.timeScale = 1f;
         AudioManager.instance.PlayButtonClick();
         SceneManager.LoadScene(0);

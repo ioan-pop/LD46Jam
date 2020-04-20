@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class EndgameUIController : MonoBehaviour
 {
     public Text victoryDefeatText;
@@ -22,5 +22,9 @@ public class EndgameUIController : MonoBehaviour
 
     public void QuitGame() {
         Application.Quit();
+    }
+
+    public void MainMenu() {
+        SceneManager.LoadScene(0);
     }
 }

@@ -87,6 +87,10 @@ public class GameManager {
         clickMovement = value;
     } 
 
+    public void ResetGame() {
+        allFollowers.Clear();
+    }
+
     private Vector3 FindRandomCenterPoint(List<GameObject> followers) {
         
         if (followers.Count == 0)
@@ -94,7 +98,6 @@ public class GameManager {
 
         if (followers.Count == 1)
             return followers[0].transform.position;
-
         Bounds bounds = new Bounds(followers[0].transform.position, Vector3.zero);
         int randomStart = Random.Range(1, followers.Count - 1);
         int randomEnd = Random.Range(randomStart, Random.Range(randomStart + 1, followers.Count));
