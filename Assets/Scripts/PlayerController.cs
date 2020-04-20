@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private List<GameObject> followerInRange = new List<GameObject>();
     private List<GameObject> bannersInRange = new List<GameObject>();
 
+    private CharacterController characterController;
+
     private bool destoryingBanner = false;
 
     private bool canDoAction = false;
@@ -35,16 +37,21 @@ public class PlayerController : MonoBehaviour
     private Color secondaryColor;
     private AudioSource audioSource;
 
-    private float actionTimer = 0f;
+    public float actionTimer = 0f;
     private float actionCoolDown = 4f;
 
     private float timerTillDestroyedBanner = 0f;
     private float timeToDestroyBanner = 2f;
 
+    private float x;
+    private float z;
+
     void Start() {
+        characterController = GetComponent<CharacterController>();
         playerMaterials = playerModel.GetComponent<MeshRenderer>().materials;
         SetPlayerColors();
         audioSource = GetComponent<AudioSource>();
+        isClickMovement = GameManager.Instance.GetClickMovement();
     }
 
     void Update() {
@@ -54,6 +61,7 @@ public class PlayerController : MonoBehaviour
         HandleSpreadReligion();
         UpdateCamera();
         HandleAnimation();
+        HandleKeyboardMovement();
     }
 
     private void SetPlayerColors() {
@@ -75,14 +83,42 @@ public class PlayerController : MonoBehaviour
     }
     
     private void HandleMouse() {
-        if (!destoryingBanner) {
-            if (Input.GetMouseButton(1)) {
-                RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
-                foreach (RaycastHit hit in hits) {
-                    if (hit.transform.tag == "terrain") {
-                        playerNavMeshAgent.destination = hit.point;
+        if (isClickMovement) {
+            if (!destoryingBanner && x == 0 && z == 0) {
+                if (Input.GetMouseButton(1) || Input.GetMouseButton(0)) {
+                    RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+                    foreach (RaycastHit hit in hits) {
+                        if (hit.transform.tag == "terrain") {
+                            playerNavMeshAgent.destination = hit.point;
+                            /*playerNavMeshAgent.SetDestination(hit.point);*/
+                        }
                     }
                 }
+            }
+        }
+    }
+/*    Debug.Log(playerNavMeshAgent.velocity);
+        if (x != 0 && z != 0) {
+            playerNavMeshAgent.ResetPath();
+            *//*NavMeshAgent.ResetPath();*//*
+        } else {
+            Vector3 offset = playerNavMeshAgent.destination - transform.position;
+            if (offset.magnitude > .1f) {
+                offset = offset.normalized* playerNavMeshAgent.speed;
+characterController.Move(offset* Time.deltaTime);
+            }
+        }*/
+
+    private void HandleKeyboardMovement() {
+        if (!isClickMovement) {
+            x = Input.GetAxis("Horizontal");
+            z = Input.GetAxis("Vertical");
+
+            Vector3 move = transform.right * x + transform.forward * z;
+            transform.Rotate(Vector3.up * x * playerNavMeshAgent.angularSpeed * Time.deltaTime, Space.Self);
+            characterController.SimpleMove(move * playerNavMeshAgent.speed);
+            if (!playerNavMeshAgent.hasPath) {
+                playerAnimator.SetFloat("Run", x + z);
             }
         }
     }
@@ -91,6 +127,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && canDoAction) {
             DropBanner();
             canDoAction = false;
+            actionTimer = 0f;
         }
         if (bannersInRange.Count > 0) {
             if (Input.GetKey(KeyCode.Q)) {
@@ -107,15 +144,16 @@ public class PlayerController : MonoBehaviour
     }
 
     private void HandleActionTimer() {
-        actionTimer += Time.deltaTime;
         if (actionTimer >= actionCoolDown) {
             canDoAction = true;
-            actionTimer = 0f;
+        } else {
+            actionTimer += Time.deltaTime;
         }
     }
 
     private void HandleSpreadReligion() {
         if (Input.GetKeyDown(KeyCode.Space) && canDoAction) {
+            actionTimer = 0f;
             canDoAction = false;
             SpreadReligion();
         }

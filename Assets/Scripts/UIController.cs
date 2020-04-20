@@ -13,14 +13,22 @@ public class UIController : MonoBehaviour {
     public Text religionNameText;
     public GameObject escapeMenu;
     public GameObject fadeScreen;
+
+    public Image actionCooldown;
+    public GameObject player;
+
+
+
     public Text scrtollScreenReligionNameText;
 
     private bool escapeMenuIsOpen = false;
     private bool fadeScreenDisabled = false;
     private float scrollTimer = 10f;
     private RectTransform fadeScreenTransform;
-
+    private PlayerController playerController;
     void Start() {
+        playerController = player.GetComponent<PlayerController>();
+
         if (PlayerDetailsManager.instance != null) {
             religionNameText.text = PlayerDetailsManager.instance.religionName;
             scrtollScreenReligionNameText.text = PlayerDetailsManager.instance.religionName;
@@ -33,9 +41,14 @@ public class UIController : MonoBehaviour {
         SetFollowerCounters();
         SetGameTime();
         HandleEscapeMenu();
+        HandleBarCooldown();
         if (!fadeScreenDisabled) {
             HandleFadeScreen();
         }
+    }
+
+    private void HandleBarCooldown() {
+        actionCooldown.fillAmount = playerController.actionTimer / 4f;
     }
 
     private void SetFollowerCounters() {
