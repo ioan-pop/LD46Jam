@@ -14,13 +14,14 @@ public class GameManager {
     private int enemyFollowersCounter;
 
     private GameObject[] followers;
-
+    private bool clickMovement;
     private GameManager() {
         canPopulate = true;
         allFollowers = new List<GameObject>();
         maxFollowers = 600;
         playerFollowersCounter = 0;
         enemyFollowersCounter = 0;
+        clickMovement = true;
     }
 
     public static GameManager Instance {
@@ -77,6 +78,14 @@ public class GameManager {
     public bool CanBirth() {
         return canPopulate;
     }
+
+    public bool GetClickMovement() {
+        return clickMovement;
+    }
+
+    public void SetClickMovement(bool value) {
+        clickMovement = value;
+    } 
 
     private Vector3 FindRandomCenterPoint(List<GameObject> followers) {
         

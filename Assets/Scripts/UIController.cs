@@ -48,11 +48,7 @@ public class UIController : MonoBehaviour {
     }
 
     private void HandleBarCooldown() {
-        Debug.Log(playerController.actionTimer);
         actionCooldown.fillAmount = playerController.actionTimer / 4f;
-
-/*        if (actionCooldown.fillAmount < 1f) {
-        }*/
     }
 
     private void SetFollowerCounters() {
