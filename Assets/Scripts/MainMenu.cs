@@ -9,19 +9,14 @@ public class MainMenu : MonoBehaviour
     public string levelToLoad;
     public GameObject instructionsPanel;
     public GameObject settingsPanel;
-    public Toggle enableWASDButton;
+    public Text movementTypeText;
+    // public Toggle enableWASDButton;
 
-    public void Start() {
+    private bool isClickToMove = true;
 
-        enableWASDButton.onValueChanged.AddListener(delegate {
-            ChangeMovementSetting(enableWASDButton);
-        });
-    }
     public void StartGame() {
         SceneManager.LoadScene(levelToLoad);
         AudioManager.instance.PlayButtonClick();
-
-
     }
 
     public void ExitGame() {
@@ -48,7 +43,10 @@ public class MainMenu : MonoBehaviour
         AudioManager.instance.PlayButtonClick();
     }
 
-    void ChangeMovementSetting(Toggle change) {
-        GameManager.Instance.SetClickMovement(change.isOn);
+    public void ToggleMovementSetting() {
+        AudioManager.instance.PlayButtonClick();
+        isClickToMove = !isClickToMove;
+        movementTypeText.text = isClickToMove ? "Mouse Click" : "WASD";
+        GameManager.Instance.SetClickMovement(isClickToMove);
     }
 }
