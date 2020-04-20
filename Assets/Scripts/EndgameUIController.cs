@@ -25,6 +25,7 @@ public class EndgameUIController : MonoBehaviour
     }
 
     public void MainMenu() {
+        AudioManager.instance.PlayButtonClick();
         SceneManager.LoadScene(0);
     }
 }
