@@ -97,17 +97,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-/*    Debug.Log(playerNavMeshAgent.velocity);
-        if (x != 0 && z != 0) {
-            playerNavMeshAgent.ResetPath();
-            *//*NavMeshAgent.ResetPath();*//*
-        } else {
-            Vector3 offset = playerNavMeshAgent.destination - transform.position;
-            if (offset.magnitude > .1f) {
-                offset = offset.normalized* playerNavMeshAgent.speed;
-characterController.Move(offset* Time.deltaTime);
-            }
-        }*/
 
     private void HandleKeyboardMovement() {
         if (!isClickMovement) {
@@ -118,7 +107,7 @@ characterController.Move(offset* Time.deltaTime);
             transform.Rotate(Vector3.up * x * playerNavMeshAgent.angularSpeed * Time.deltaTime, Space.Self);
             characterController.SimpleMove(move * playerNavMeshAgent.speed);
             if (!playerNavMeshAgent.hasPath) {
-                playerAnimator.SetFloat("Run", x + z);
+                playerAnimator.SetFloat("Run", Mathf.Abs(x + z));
             }
         }
     }
